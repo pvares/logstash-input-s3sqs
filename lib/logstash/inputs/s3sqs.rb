@@ -108,7 +108,8 @@ class LogStash::Inputs::S3SQS < LogStash::Inputs::Threadable
 
   def setup_queue
     aws_sqs_client = Aws::SQS::Client.new(aws_options_hash)
-    queue_url = aws_sqs_client.get_queue_url(:queue_name =>  @queue)[:queue_url]
+    #queue_url = aws_sqs_client.get_queue_url(:queue_name =>  @queue)[:queue_url]
+    queue_url = :queue_name
     @poller = Aws::SQS::QueuePoller.new(queue_url, :client => aws_sqs_client)
     @s3 = Aws::S3::Client.new(aws_options_hash)
   rescue Aws::SQS::Errors::ServiceError => e
